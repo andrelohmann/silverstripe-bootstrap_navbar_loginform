@@ -59,7 +59,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 				new HiddenField("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
 			$actions = new FieldList(
-				new FormAction("logout", _t('Member.BUTTONLOGINOTHER', "Log in as someone else"))
+				new FormAction("logout", '<span class="glyphicon glyphicon-log-out"></span>')
 			);
 		} else {
 			if(!$fields) {
@@ -83,7 +83,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 			}
 			if(!$actions) {
 				$actions = new FieldList(
-					$LoginButton = new FormAction('dologin', _t('Member.BUTTONLOGIN', "Log in"))
+					$LoginButton = new FormAction('dologin', '<span class="glyphicon glyphicon-log-out"></span>') // '._t('Member.BUTTONLOGIN', "Log in"))
 				);
                                 $LoginButton->addExtraClass('btn btn-default');
 			}
