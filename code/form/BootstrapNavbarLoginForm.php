@@ -59,7 +59,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 				new HiddenField("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
 			$actions = new FieldList(
-				new FormAction("logout", '<span class="glyphicon glyphicon-log-out"></span>')
+				new FormAction("logout", _t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
 		} else {
 			if(!$fields) {
@@ -83,7 +83,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 			}
 			if(!$actions) {
 				$actions = new FieldList(
-					$LoginButton = new FormAction('dologin', '<span class="glyphicon glyphicon-log-out"></span>') // '._t('Member.BUTTONLOGIN', "Log in"))
+					$LoginButton = new FormAction('dologin', _t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
 				);
                                 $LoginButton->addExtraClass('btn btn-default');
 			}
@@ -93,7 +93,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 			$fields->push(new HiddenField('BackURL', 'BackURL', $backURL));
 		}
 
-		parent::__construct($controller, $name, $fields, $actions, $checkCurrentUser = true);
+		parent::__construct($controller, $name, $fields, $actions, $checkCurrentUser = false);
 	}
 
 
