@@ -2,3 +2,6 @@ de:
   BootstrapNavbarLoginForm:
     BUTTONLOGIN: '<span class="glyphicon glyphicon-log-in"></span>'
     BUTTONLOGOUT: '<span class="glyphicon glyphicon-log-out"></span>'
+  BootstrapNavbarModalLoginForm:
+    MODALTITLE: 'Einloggen'
+    MODALBUTTON: '<span class="glyphicon glyphicon-log-in"></span> Einloggen'

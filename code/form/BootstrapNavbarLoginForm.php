@@ -1,13 +1,20 @@
 <?php
 /**
- * Log-in form for the "member" authentication method
- * @package EmailVerifiedMember
+ * LoginForm for Bootstrap Navbar
+ * 
+ * put $BootstrapNavbarLoginForm inside your navbar
+ * 
+ * @package bootstrap_navbar_loginform
  */
 class BootstrapNavbarLoginForm extends MemberLoginForm {
         
-        private static $AuthenticatorClass = "MemberAuthenticator";
+        protected static $AuthenticatorClass = "MemberAuthenticator";
         
-        private static $LoginFormClass = "MemberLoginForm";
+        protected static $LoginFormClass = "MemberLoginForm";
+        
+        protected static $LoginButtonClass = "btn-info";
+        
+        protected static $LogoutButtonClass = "btn-danger";
     
         public static function set_AuthenticatorClass($class){
             self::$AuthenticatorClass = $class;
@@ -23,6 +30,22 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 
         public static function get_LoginFormClass(){
             return self::$LoginFormClass;
+        }
+    
+        public static function set_LoginButtonClass($class){
+            self::$LoginButtonClass = $class;
+        }
+
+        public static function get_LoginButtonClass(){
+            return self::$LoginButtonClass;
+        }
+    
+        public static function set_LogoutButtonClass($class){
+            self::$LogoutButtonClass = $class;
+        }
+
+        public static function get_LogoutButtonClass(){
+            return self::$LogoutButtonClass;
         }
 	
 	/**
@@ -59,8 +82,9 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 				new HiddenField("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
 			$actions = new FieldList(
-				new FormAction("logout", _t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
+				$LogoutButton = new FormAction("logout", _t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
+                        $LogoutButton->addExtraClass(self::get_LogoutButtonClass());
 		} else {
 			if(!$fields) {
 				$label=singleton('Member')->fieldLabel(Member::config()->unique_identifier_field);
@@ -70,22 +94,14 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 					$Email = new TextField("Email", $label, Session::get('SessionForms.MemberLoginForm.Email'), null, $this),
 					$Password = new PasswordField("Password", _t('Member.PASSWORD', 'Password'))
 				);
-				//if(Security::config()->autologin_enabled) {
-				//	$fields->push(new CheckboxField(
-				//		"Remember", 
-				//		_t('Member.REMEMBERME', "Remember me next time?")
-				//	));
-				//}
-                                //$Email->addExtraClass('col-md-2');
                                 $Email->setPlaceholder($label);
-                                //$Password->addExtraClass('col-md-2');
                                 $Password->setPlaceholder(_t('Member.PASSWORD', 'Password'));
 			}
 			if(!$actions) {
 				$actions = new FieldList(
 					$LoginButton = new FormAction('dologin', _t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
 				);
-                                $LoginButton->addExtraClass('btn btn-default');
+                                $LoginButton->addExtraClass(self::get_LoginButtonClass());
 			}
 		}
 

@@ -7,11 +7,15 @@
 class BootstrapNavbarLoginFormController extends Extension {
     
     private static $allowed_actions = array(
-        'BootstrapNavbarLoginForm'
+        'BootstrapNavbarLoginForm',
+        'BootstrapNavbarModalLoginForm'
     );
     
     public function BootstrapNavbarLoginForm(){
-        $LoginForm = Object::create("BootstrapNavbarLoginForm", $this->owner, "BootstrapNavbarLoginForm");
-        return $LoginForm;
+        return BootstrapNavbarLoginForm::create($this->owner, "BootstrapNavbarLoginForm");
+    }
+    
+    public function BootstrapNavbarModalLoginForm(){
+        return BootstrapNavbarModalLoginForm::create($this->owner, "BootstrapNavbarModalLoginForm");
     }
 }
