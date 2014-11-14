@@ -170,7 +170,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 	 * @param message the text of the message
 	 * @param type Should be set to good, bad, or warning.
 	 */
-	public function sessionMessage($message, $type) {
+	public function sessionMessage($message, $type, $escapeHtml = true) {
 		Session::set("FormInfo.".self::$LoginFormClass."_LoginForm.formError.message", $message);
 		Session::set("FormInfo.".self::$LoginFormClass."_LoginForm.formError.type", $type);
 	}
