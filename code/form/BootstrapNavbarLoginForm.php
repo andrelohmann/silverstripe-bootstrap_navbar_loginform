@@ -82,7 +82,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 				new HiddenField("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
 			$actions = new FieldList(
-				$LogoutButton = new FormAction("logout", _t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
+				$LogoutButton = new BootstrapLoadingFormAction("logout", _t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
                         $LogoutButton->addExtraClass(self::get_LogoutButtonClass());
 		} else {
@@ -99,7 +99,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 			}
 			if(!$actions) {
 				$actions = new FieldList(
-					$LoginButton = new FormAction('dologin', _t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
+					$LoginButton = new BootstrapLoadingFormAction('dologin', _t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
 				);
                                 $LoginButton->addExtraClass(self::get_LoginButtonClass());
 			}
