@@ -76,7 +76,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 				new HiddenField("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
 			$actions = new FieldList(
-				$LogoutButton = BootstrapLoadingFormAction("logout")->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
+				$LogoutButton = BootstrapLoadingFormAction::create("logout")->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
                         $LogoutButton->addExtraClass(parent::get_LogoutButtonClass());
 		} else {
