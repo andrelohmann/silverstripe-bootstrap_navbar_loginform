@@ -1,0 +1,5 @@
+name: bootstrap-navbar-loginform
+---
+Controller:
+  extensions:
+    - BootstrapNavbarLoginFormController

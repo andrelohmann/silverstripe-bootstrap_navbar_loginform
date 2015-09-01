@@ -8,45 +8,13 @@
  */
 class BootstrapNavbarLoginForm extends MemberLoginForm {
         
-        protected static $AuthenticatorClass = "MemberAuthenticator";
-        
-        protected static $LoginFormClass = "MemberLoginForm";
-        
-        protected static $LoginButtonClass = "btn-info";
-        
-        protected static $LogoutButtonClass = "btn-danger";
-    
-        public static function set_AuthenticatorClass($class){
-            self::$AuthenticatorClass = $class;
-        }
+	protected static $custom_authenticator_class = "MemberAuthenticator";
 
-        public static function get_AuthenticatorClass(){
-            return self::$AuthenticatorClass;
-        }
-    
-        public static function set_LoginFormClass($class){
-            self::$LoginFormClass = $class;
-        }
+	protected static $login_form_class = "MemberLoginForm";
 
-        public static function get_LoginFormClass(){
-            return self::$LoginFormClass;
-        }
-    
-        public static function set_LoginButtonClass($class){
-            self::$LoginButtonClass = $class;
-        }
+	protected static $login_button_class = "btn-info";
 
-        public static function get_LoginButtonClass(){
-            return self::$LoginButtonClass;
-        }
-    
-        public static function set_LogoutButtonClass($class){
-            self::$LogoutButtonClass = $class;
-        }
-
-        public static function get_LogoutButtonClass(){
-            return self::$LogoutButtonClass;
-        }
+	protected static $logout_button_class = "btn-danger";
 	
 	/**
 	 * Constructor
@@ -69,7 +37,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 	public function __construct($controller, $name, $fields = null, $actions = null, $checkCurrentUser = true) {
             
             // set the Authenticator class
-            $this->authenticator_class = self::$AuthenticatorClass;
+        $this->authenticator_class = self::config()->custom_authenticator_class;
 
 		if(isset($_REQUEST['BackURL'])) {
 			$backURL = $_REQUEST['BackURL'];
@@ -84,7 +52,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 			$actions = new FieldList(
 				$LogoutButton = BootstrapLoadingFormAction::create("logout")->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
-                        $LogoutButton->addExtraClass(self::get_LogoutButtonClass());
+            $LogoutButton->addExtraClass(self::config()->logout_button_class);
 		} else {
 			if(!$fields) {
 				$label=singleton('Member')->fieldLabel(Member::config()->unique_identifier_field);
@@ -94,14 +62,14 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 					$Email = new TextField("Email", $label, Session::get('SessionForms.MemberLoginForm.Email'), null, $this),
 					$Password = new PasswordField("Password", _t('Member.PASSWORD', 'Password'))
 				);
-                                $Email->setPlaceholder($label);
-                                $Password->setPlaceholder(_t('Member.PASSWORD', 'Password'));
+				$Email->setPlaceholder($label);
+				$Password->setPlaceholder(_t('Member.PASSWORD', 'Password'));
 			}
 			if(!$actions) {
 				$actions = new FieldList(
 					$LoginButton = BootstrapLoadingFormAction::create('dologin')->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
 				);
-                                $LoginButton->addExtraClass(self::get_LoginButtonClass());
+				$LoginButton->addExtraClass(self::config()->login_button_class);
 			}
 		}
 
@@ -134,9 +102,10 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 
 			if($backURL) Session::set('BackURL', $backURL);
                         
-                        // Show the right tab on failed login
-                        $s = new Security();
-    			$loginLink = Director::absoluteURL($s->Link("login"));
+			// Show the right tab on failed login
+			$s = new Security();
+			$loginLink = Director::absoluteURL($s->Link("login"));
+			
 			if($backURL) $loginLink .= '?BackURL=' . urlencode($backURL);
 			$this->controller->redirect($loginLink . '#' . $this->FormName() .'_tab');
 		}
@@ -157,9 +126,9 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 
 		if(isset($_REQUEST['BackURL'])) $backURL = $_REQUEST['BackURL']; 
 		else $backURL = null; 
-                if($backURL) Session::set('BackURL', $backURL);
-                // Show the right tab on failed login
-    		$loginLink = Director::absoluteURL($s->Link("login"));
+		if($backURL) Session::set('BackURL', $backURL);
+		// Show the right tab on failed login
+		$loginLink = Director::absoluteURL($s->Link("login"));
 		if($backURL) $loginLink .= '?BackURL=' . urlencode($backURL);
 		$this->controller->redirect($loginLink . '#' . $this->FormName() .'_tab');
 	}
@@ -171,7 +140,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 	 * @param type Should be set to good, bad, or warning.
 	 */
 	public function sessionMessage($message, $type, $escapeHtml = true) {
-		Session::set("FormInfo.".self::$LoginFormClass."_LoginForm.formError.message", $message);
-		Session::set("FormInfo.".self::$LoginFormClass."_LoginForm.formError.type", $type);
+		Session::set("FormInfo.".self::config()->login_form_class."_LoginForm.formError.message", $message);
+		Session::set("FormInfo.".self::config()->login_form_class."_LoginForm.formError.type", $type);
 	}
 }

@@ -62,8 +62,8 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 	 */
 	public function __construct($controller, $name, $fields = null, $actions = null, $checkCurrentUser = true) {
             
-            // set the Authenticator class
-            $this->authenticator_class = parent::$AuthenticatorClass;
+		// set the Authenticator class
+		$this->authenticator_class = parent::config()->custom_authenticator_class;
 
 		if(isset($_REQUEST['BackURL'])) {
 			$backURL = $_REQUEST['BackURL'];
@@ -78,7 +78,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 			$actions = new FieldList(
 				$LogoutButton = BootstrapLoadingFormAction::create("logout")->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGOUT', 'BootstrapNavbarLoginForm.BUTTONLOGOUT'))
 			);
-                        $LogoutButton->addExtraClass(parent::get_LogoutButtonClass());
+			$LogoutButton->addExtraClass(parent::config()->logout_button_class);
 		} else {
 			if(!$fields) {
 				$label=singleton('Member')->fieldLabel(Member::config()->unique_identifier_field);
@@ -87,7 +87,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 					//Regardless of what the unique identifer field is (usually 'Email'), it will be held in the 'Email' value, below:
 					$Email = new TextField("Email", $label, Session::get('SessionForms.MemberLoginForm.Email'), null, $this),
 					$Password = new PasswordField("Password", _t('Member.PASSWORD', 'Password')),
-                                        new LiteralField(
+					new LiteralField(
 						'forgotPassword',
 						'<p id="ForgotPassword"><a href="Security/lostpassword">'
 						. _t('Member.BUTTONLOSTPASSWORD', "I've lost my password") . '</a></p>'
@@ -99,14 +99,14 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 						_t('Member.REMEMBERME', "Remember me next time?")
 					));
 				}
-                                $Email->setPlaceholder($label);
-                                $Password->setPlaceholder(_t('Member.PASSWORD', 'Password'));
+				$Email->setPlaceholder($label);
+				$Password->setPlaceholder(_t('Member.PASSWORD', 'Password'));
 			}
 			if(!$actions) {
 				$actions = new FieldList(
 					$LoginButton = BootstrapLoadingFormAction::create('dologin')->setButtonContent(_t('BootstrapNavbarLoginForm.BUTTONLOGIN', 'BootstrapNavbarLoginForm.BUTTONLOGIN'))
 				);
-                                $LoginButton->addExtraClass(parent::get_LoginButtonClass());
+				$LoginButton->addExtraClass(parent::config()->login_button_class);
 			}
 		}
 
@@ -120,7 +120,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
                     $this->title = _t('BootstrapNavbarModalLoginForm.MODALTITLE', 'BootstrapNavbarModalLoginForm.MODALTITLE');
         
                     $this->ModalFormAction = new BootstrapModalFormAction($Title = _t('BootstrapNavbarModalLoginForm.MODALBUTTON', 'BootstrapNavbarModalLoginForm.MODALBUTTON'));
-                    $this->ModalFormAction->addExtraClass(parent::get_LoginButtonClass().' navbar-btn navbar-right');
+                    $this->ModalFormAction->addExtraClass(parent::config()->login_button_class.' navbar-btn navbar-right');
                     $this->ModalFormAction->setTarget("Modal_".$this->FormName());
 
                     if($this->hasErrors()){

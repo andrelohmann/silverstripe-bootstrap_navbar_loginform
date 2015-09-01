@@ -1,7 +1,5 @@
 <?php
 
-Controller::add_extension('BootstrapNavbarLoginFormController');
-
 // Customize, if different authenticator and Form is used
-//BootstrapNavbarLoginForm::$AuthenticatorClass = "MemberAuthenticator";
-//BootstrapNavbarLoginForm::$LoginFormClass = "MemberLoginForm";
+//Config::inst()->update('BootstrapNavbarLoginForm', 'custom_authenticator_class', "MemberAuthenticator");
+//Config::inst()->update('BootstrapNavbarLoginForm', 'login_form_class', "MemberLoginForm");
