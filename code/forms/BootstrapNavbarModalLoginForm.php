@@ -120,7 +120,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
                     $this->title = _t('BootstrapNavbarModalLoginForm.MODALTITLE', 'BootstrapNavbarModalLoginForm.MODALTITLE');
         
                     $this->ModalFormAction = new BootstrapModalFormAction($Title = _t('BootstrapNavbarModalLoginForm.MODALBUTTON', 'BootstrapNavbarModalLoginForm.MODALBUTTON'));
-                    $this->ModalFormAction->addExtraClass(parent::config()->login_button_class.' navbar-btn navbar-right');
+                    $this->ModalFormAction->addExtraClass(parent::config()->login_button_class.' navbar-btn');
                     $this->ModalFormAction->setTarget("Modal_".$this->FormName());
 
                     if($this->hasErrors()){
