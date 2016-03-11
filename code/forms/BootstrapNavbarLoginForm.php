@@ -12,7 +12,7 @@ class BootstrapNavbarLoginForm extends MemberLoginForm {
 
 	protected static $login_form_class = "MemberLoginForm";
 
-	protected static $login_button_class = "btn-info";
+	protected static $login_button_class = "btn-primary";
 
 	protected static $logout_button_class = "btn-danger";
 	
