@@ -1,47 +1,47 @@
 <?php
 /**
  * Modal LoginForm for Bootstrap Navbar
- * 
+ *
  * put $BootstrapNavbarModalLoginForm inside your navbar
  * and $BootstrapNavbarModalLoginForm.Modal outside of your navbar
- * 
+ *
  * @package bootstrap_navbar_loginform
  */
 class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
-    
+
     protected $ModalFormAction;
     protected $title;
-    
+
     protected $size = 'modal-sm';
-    
+
     protected $modal = null;
-    
+
     public function hasErrors(){
         $errorInfo = Session::get("FormInfo.{$this->FormName()}");
-        
+
         if(isset($errorInfo['errors']) && is_array($errorInfo['errors'])){
             return true;
         }
-        
+
         if(isset($errorInfo['message']) && isset($errorInfo['type'])) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     public function getTitle(){
         return $this->title;
     }
-    
+
     public function getSize(){
         return $this->size;
     }
-    
+
     public function getModal(){
         return $this->modal;
     }
-	
+
 	/**
 	 * Constructor
 	 *
@@ -61,7 +61,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 	 * @param string $authenticatorClassName Name of the authenticator class that this form uses.
 	 */
 	public function __construct($controller, $name, $fields = null, $actions = null, $checkCurrentUser = true) {
-            
+
 		// set the Authenticator class
 		$this->authenticator_class = parent::config()->custom_authenticator_class;
 
@@ -95,7 +95,7 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 				);
 				if(Security::config()->autologin_enabled) {
 					$fields->push(new CheckboxField(
-						"Remember", 
+						"Remember",
 						_t('Member.REMEMBERME', "Remember me next time?")
 					));
 				}
@@ -115,11 +115,11 @@ class BootstrapNavbarModalLoginForm extends BootstrapNavbarLoginForm {
 		}
 
 		parent::__construct($controller, $name, $fields, $actions, $checkCurrentUser = false);
-                
+
                 if(!Member::currentUser()){
                     $this->title = _t('BootstrapNavbarModalLoginForm.MODALTITLE', 'BootstrapNavbarModalLoginForm.MODALTITLE');
-        
-                    $this->ModalFormAction = new BootstrapModalFormAction($Title = _t('BootstrapNavbarModalLoginForm.MODALBUTTON', 'BootstrapNavbarModalLoginForm.MODALBUTTON'));
+
+                    $this->ModalFormAction = new BootstrapNavbarModalLoginFormAction($Title = _t('BootstrapNavbarModalLoginForm.MODALBUTTON', 'BootstrapNavbarModalLoginForm.MODALBUTTON'));
                     $this->ModalFormAction->addExtraClass(parent::config()->login_button_class);
                     $this->ModalFormAction->setTarget("Modal_".$this->FormName());
 
@@ -133,7 +133,7 @@ $(function () {
 JS;
                         Requirements::customScript($js, 'BootstrapModalForm_hasErrorJs');
                     }
-                    
+
                     $this->modal = $this->forTemplate();
 
                     $this->setTemplate('BootstrapNavbarModalLoginFormButton');
